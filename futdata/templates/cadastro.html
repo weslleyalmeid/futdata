@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block top %}
+<br>
+<section class="hero has-background-primary">
+    <div class="hero-body ">
+        <div class="container">
+            <h1>Cadastre-se no melhor site do mundo</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block main %}
+<div class="columns is-centered">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="notification is-danger">
+                    <p> {{ msg }} </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<form action='{{ url_for("site.cadastro") }}' method='post' enctype='multipart/form-data'>
+
+    <!-- necessário token para validar cadastro -->
+    {{ form.csrf_token }}
+    <div class="columns is-centered">
+        <div >
+            {{ form.nome.label(class="label") }}
+            <p class="control has-icons-left">
+                {{ form.nome(size=30, class='input', placeholder='Digite seu nome') }}<br>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </p>
+
+            {{ form.telefone.label(class="label") }}
+            <p class="control has-icons-left">
+                {{ form.telefone(size=30, class='input', placeholder='Telefone') }}<br>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                </span>
+            </p>
+
+            {{ form.email.label(class="label") }}
+            <p class="control has-icons-left has-icons-right">
+                {{ form.email(size=30, class='input', placeholder='Email') }}<br>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>
+            </p>
+
+            {{ form.password.label(class="label") }}
+            <p class="control has-icons-left">
+                {{ form.password(size=30, class='input', placeholder='Senha') }}<br>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+            
+            
+            <br>
+            <input type="submit" value="enviar!!" class="button is-black">
+            
+           
+                
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+          <div class="columns is-multiline">
+            <div class="column is-6-tablet is-3-desktop">
+              <div class="box">
+                <div class="media">
+                  <div class="media-left"><figure class="image is-48x48"><img src="placeholder/icons/folder-o.svg" alt=""></figure></div>
+                  <div class="media-content has-text-right">
+                    <h3 class="title is-1 has-text-info">6</h3>
+                  </div>
+                </div>
+                <h4 class="title">Quadras </h4>
+                <progress class="progress is-info" role="progressbar" value="100" max="100"></progress>
+              </div>
+            </div>
+            <div class="column is-6-tablet is-3-desktop">
+              <div class="box">
+                <div class="media">
+                  <div class="media-left"><figure class="image is-48x48"><img src="placeholder/icons/users.svg" alt=""></figure></div>
+                  <div class="media-content has-text-right">
+                    <h3 class="title is-1 has-text-danger">117</h3>
+                  </div>
+                </div>
+                <h4 class="title">Clientes</h4>
+                <progress class="progress is-danger bd-rainbow" role="progressbar" value="75" max="100"></progress>
+              </div>
+            </div>
+            <div class="column is-6-tablet is-3-desktop">
+              <div class="box">
+                <div class="media">
+                  <div class="media-left"><figure class="image is-48x48"><img src="placeholder/icons/file-text-o.svg" alt=""></figure></div>
+                  <div class="media-content has-text-right">
+                    <h3 class="title is-1 has-text-success">248</h3>
+                  </div>
+                </div>
+                <h4 class="title">Reservas</h4>
+                <progress class="progress is-success" role="progressbar" value="75" max="100"></progress>
+              </div>
+            </div>
+            <div class="column is-6-tablet is-3-desktop">
+              <div class="box">
+                <div class="media">
+                  <div class="media-left"><figure class="image is-48x48"><img src="placeholder/icons/calendar-o.svg" alt=""></figure></div>
+                  <div class="media-content has-text-right">
+                    <h3 class="title is-1 has-text-info">14</h3>
+                  </div>
+                </div>
+                <h4 class="title">Avaliações</h4>
+                <progress class="progress is-info" role="progressbar" value="75" max="100"></progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    
+</form>
+
+{% endblock %}

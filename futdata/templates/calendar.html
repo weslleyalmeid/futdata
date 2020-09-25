@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="table-container">
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th scope="col">Horários</th>
+                    {% for data in interval_date %}
+                    <th scope="col">{{ data }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for marcado in marcados %}
+                <tr>
+                    {% if marcado[0] < 10 %}
+                    <th scope="row">{{ '0' + marcado[0]|string + ':00' }}</th>
+                    {% else %}
+                    <th scope="row">{{ marcado[0]|string + ':00' }}</th>
+                    {% endif %}
+
+                    {% for horario in marcado[1:] %}
+                    {% if horario == 'Reservado' %}
+                    <td bgcolor="red">{{ horario }}</td>
+                    {% else %}
+                    <td>{{ horario }}</td>
+
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

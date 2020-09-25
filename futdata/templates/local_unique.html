@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+<!-- {% import "macros/list_item.html" as list_item %} -->
+
+
+{% block top %}
+<section class="hero has-background-black ">
+
+
+  <div class="block">
+    <br>
+    <section class="hero has-background-primary">
+      <div class="hero-body">
+        <div class="container">
+          {% if current_user.is_authenticated %}
+          <h1 class="title">Bem vindo, {{ current_user.nome }}!</h1>
+          {% else %}
+          <h1 class="title">Em Desenvolvimento</h1>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+</section>
+{% endblock top %}
+
+
+
+{% block main %}
+<div class="columns">
+  <div class='column'>
+    <figure class="image is-2by1">
+      <img src="data:;base64,{{ imagem }}" alt="Placeholder image">
+    </figure>
+  </div>
+</div>
+
+
+<form action='{{ url_for("site.agendar", id=local.idlocal) }}' method='post' enctype='multipart/form-data'>
+  <div class="columns is-centered">
+    <div class='column is-half'>
+      <div class="content">
+        <strong>Local:</strong> {{ local.nome }}
+        <br>
+        <strong>Preço:</strong> {{ local.preco }}
+        <br>
+        <strong>Telefone:</strong> {{ local.telefone }}
+        <br>
+        <strong>Endereco:</strong> {{ endereco.rua }}, {{ endereco.numero }}, {{ endereco.bairro }}
+        <br>
+        <strong>Responsável:</strong> {{ responsavel.nome }}
+
+
+      </div>
+    </div>
+
+    <div class='column is-half'>
+      <div class="content">
+        <strong>Data:</strong>{{ form.data }}
+        <br>
+        <strong>Horário:</strong>{{ form.hora }}
+        <br>
+        {% if current_user.is_authenticated %}
+
+        <input type="submit" value="Agendar" class="button is-primary">
+        <div class="flashes">
+          {% for message in get_flashed_messages() %}
+          <div class="notification is-danger">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="buttons">
+          <a class="button is-primary" href="{{ url_for('site.logout') }}">Login para agendar</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</form>
+
+<br>
+<div class="container">
+  <div style="margin-left:auto;margin-right:auto;">
+
+    <div class="title">Prévia das reservas</div>
+
+    <!-- <form action='{{ url_for("site.calendar", id=local.idlocal) }}' method='post' enctype='multipart/form-data'> -->
+      <form target="my_iframe" action='{{ url_for("site.calendar", id=local.idlocal) }}' id="my_form" method='post' enctype='multipart/form-data'>
+
+      <div class="form-group row">
+        <label for="example-date-input" class="col-2 col-form-label">Date</label>
+        <div class="col-10">
+          {{ form.data }}
+        </div>
+      </div>
+
+      <input type="submit" value="Checar" class="button is-primary" onclick="atualiza_iframe()">
+    </form>
+  </div>
+</div>
+
+<iframe id='my_iframe' name='my_iframe' frameborder='0' noresize='noresize' style='position: absolute; background: transparent; width: 100%; height:30%;' src='{{ url_for("site.calendar", id=local.idlocal) }}' frameborder="0"></iframe>
+
+{% endblock main %}

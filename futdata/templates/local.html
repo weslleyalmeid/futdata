@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import "macros/list_item.html" as list_item %}
+
+{% block top %}
+<div class="block">
+    <br>
+    <section class="hero has-background-primary">
+      <div class="hero-body">
+        <div class="container">
+          {% if current_user.is_authenticated %}
+            <h1 class="title">Bem vindo,  {{ current_user.nome }}!</h1>
+          {% else %}
+            <h1 class="title">Em Desenvolvimento</h1>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock top %}
+
+
+
+{% block main %}
+<div class="block">
+  <section class="hero has-background is-white">
+    <div class="hero-body ">
+      {% endblock top %}
+      {% block main %}
+
+      <div class="columns border is-multiline">
+        {{ list_item.cards(obj, id_local, imagem, nome, telefone, preco, qtd) }}
+      </div>
+
+      {% endblock main %}
+    </div>
+  </section>
+</div>
+{% endblock main %}
+

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+<!-- {% import "macros/list_item.html" as list_item %} -->
+
+
+{% block top %}
+<section class="hero has-background-black ">
+
+
+  <div class="block">
+    <br>
+    <section class="hero has-background-primary">
+      <div class="hero-body">
+        <div class="container">
+          {% if current_user.is_authenticated %}
+          <h1 class="title">Bem vindo, {{ current_user.nome }}!</h1>
+          {% else %}
+          <h1 class="title">Em Desenvolvimento</h1>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+</section>
+{% endblock top %}
+
+
+
+{% block main %}
+<div class="columns">
+  <div class='column is-half'>
+    <h2 class="title" <strong>Dados do usuário</strong></h2>
+    <div class="content">
+      <strong>Nome:</strong> {{ nome }}
+      <br>
+      <strong>Email:</strong> {{ email }}
+      <br>
+      <strong>Telefone:</strong> {{ telefone }}
+    </div>
+  </div>
+
+
+  <div class='column is-half'>
+    <figure class="image is-2by1">
+      <img src="data:;base64,{{ imagem }}" alt="Placeholder image">
+    </figure>
+
+    <br>
+
+    <div class="content">
+      <strong>Data:</strong>{{ data }}
+      <br>
+      <strong>Horário:</strong>{{ hora }}
+      <br>
+    </div>
+  </div>
+</div>
+
+<div class="columns">
+  <div class='column is-half'>
+    <form action='{{ url_for("site.reservado", id=local.idlocal, data=data, hora=hora) }}' method='post'
+      enctype='multipart/form-data'>
+
+      <h2 class="title"><strong>Pagamento</strong></h2>
+      <!-- <div class="field has-addons">
+        <div class="control">
+          <strong>{{ form.cod_pagamento.label }}:</strong> {{ form.cod_pagamento(class="input") }}
+        </div>
+        <div class="control">
+          <input type="submit" value="Confirmar e agendar" class="button is-primary button is-info">
+        </div>
+      </div> -->
+      {{ form.cod_pagamento.label(class="label") }}
+      <div class="field has-addons">
+        <div class="control">
+          {{ form.cod_pagamento(class="input is-primary", placeholder="Insira o código de pagamento") }}
+        </div>
+        
+        <div class="control">
+          <input type="submit" value="Enviar e Agendar" class="button is-primary button is-info">
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+
+  <div class='column is-half'>
+    <h2 class="title"><strong>Local</strong></h2>
+    <div class="content">
+      <strong>Local:</strong> {{ local.nome }}
+      <br>
+      <strong>Preço:</strong> R$ {{ local.preco|replace('.',',') }}
+      <br>
+      <strong>Telefone:</strong> {{ local.telefone }}
+      <br>
+      <strong>Endereco:</strong> {{ endereco.rua }}, {{ endereco.numero }}, {{ endereco.bairro }}
+      <br>
+      <strong>Responsável:</strong> {{ responsavel.nome }}
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock main %}

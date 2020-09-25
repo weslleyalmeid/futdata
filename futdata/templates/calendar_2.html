@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+        table {
+            width: 100%;
+        }
+
+        thead,
+        tbody,
+        tr,
+        td,
+        th {
+            display: block;
+        }
+
+        tr:after {
+            content: '';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+
+        thead th {
+            height: 50px;
+
+            /*text-align: left;*/
+        }
+
+        tbody {
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        thead {
+            /* fallback */
+        }
+
+        tbody td {
+            width: 12.5%;
+            float: left;
+        }
+
+        
+        thead th {
+            width: 12.2%;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Horários</th>
+                    {% for data in interval_date %}
+                    <th scope="col">{{ data }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for marcado in marcados %}
+                <tr>
+                    {% if marcado[0] < 10 %}
+                    <td> <strong>{{ '0' + marcado[0]|string + ':00' }}</strong></td>
+                    {% else %}
+                    <td><strong>{{ marcado[0]|string + ':00' }}</strong></td>
+                    {% endif %}
+
+                    {% for horario in marcado[1:] %}
+                    {% if horario == 'Reservado' %}
+                    <td bgcolor="red" class="filterable-cell">{{ horario }}</td>
+                    {% else %}
+                    <td>{{ horario }}</td>
+
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</body>
+
+</html>

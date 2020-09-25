@@ -1,0 +1,31 @@
+{% macro cards(obj, id_local, imagem, nome, telefone, preco, qtd) %}
+{% for pos in qtd %}
+<div class="column is-one-quarter">
+
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                    <a href="{{ url_for('site.unique', id=id_local[pos]) }}">
+                        <img src="data:;base64,{{ imagem[pos] }}" alt="Placeholder image">
+                    </a>
+                </figure>
+            </div>
+
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{ nome[pos] }}</p>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <strong>Preço:</strong> R$ {{ preco[pos]|replace('.',',') + '0' }}
+                    <br>
+                    <strong>Telefone:</strong> {{ telefone[pos] }}
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endfor %}
+{% endmacro%}

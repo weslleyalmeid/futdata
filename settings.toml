@@ -1,0 +1,35 @@
+[default]
+DEBUG = false 
+EXTENSIONS = [
+  "futdata.ext.db:init_app",
+  "futdata.ext.auth:init_app",
+  "futdata.ext.admin:init_app",
+  "futdata.ext.cli:init_app",
+  "futdata.ext.site:init_app",
+  "futdata.ext.hooks:init_app",
+] 
+FLASK_ADMIN_SWATCH = "cyborg" # choose another theme at https://bootswatch.com/
+UPLOAD_FOLDER = 'img'
+
+[development]
+DEBUG = false
+SQLALCHEMY_DATABASE_URI = "sqlite:///futdata.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+DEBUG_TB_TEMPLATE_EDITOR_ENABLED = true
+DEBUG_TB_PROFILER_ENABLED = true
+DEBUG_TB_INTERCEPT_REDIRECTS = false
+EXTENSIONS = [
+  "futdata.ext.db:init_app",
+  "futdata.ext.auth:init_app",
+  "futdata.ext.admin:init_app",
+  "futdata.ext.cli:init_app",
+  # "futdata.ext.toolbar:init_app",
+  "futdata.ext.site:init_app",
+  "futdata.ext.hooks:init_app",
+]
+
+
+[production]
+# SQLALCHEMY_DATABASE_URI = "mysql://...."
+SQLALCHEMY_DATABASE_URI = "sqlite:///futdata.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = false

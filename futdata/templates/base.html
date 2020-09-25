@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FutData!</title>
+  <link rel="icon" type="imagem/png" href="{{url_for('static', filename='img/logp_icon.png')}}"/>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.css">-->
+  <link rel="stylesheet" href="https://bulma.io/css/bulma-docs.min.css?v=202009031017">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+  <link rel="stylesheet" href="https://bulma.io/css/bulma-docs.min.css?v=202009162331">
+
+  <link rel="canonical" href="https://bulma.io/documentation/elements/button/">
+  <link rel="alternate" type="application/rss+xml" title="Bulma: Free, open source, and modern CSS framework based on Flexbox" href="https://bulma.io/atom.xml">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+  
+  {% endblock head %}
+  {%block  extra_css %} {% endblock extra_css %}
+  
+</head>
+
+
+<body>
+  
+  {% block nav %}
+  <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-item ">
+      <a class="button is-danger bd-rainbow	 has-text-white	" href="{{ url_for('site.index') }}">
+        <strong>FutData</strong>
+      </a>
+    </div>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+
+      <div class="navbar-start ">
+
+        <div class="navbar-item">
+          <a class="button is-link is-active has-text-white	" href="/">
+            Home
+          </a>
+        </div>
+
+        <div class="navbar-item">
+          <a class="button is-info has-text-white	" href="{{ url_for('site.local') }}">
+            Locais
+          </a>
+        </div>
+
+        <div class="navbar-item">
+          <a class="button has-background-primary-dark  has-text-white	" href="{{ url_for('site.sobre') }}">
+            Sobre
+          </a>
+        </div>
+        {% if current_user.is_authenticated %}
+          <div class="navbar-item">
+            <a class="button is-link has-text-white	" href="{{ url_for('site.agendado') }}">
+              Reservas
+            </a>
+          </div>
+
+        {% endif %}
+
+        {% if current_user.is_authenticated and current_user.proprietario %}
+        <div class="navbar-item">
+          <a class="button is-link has-text-white	" href="{{ url_for('site.administrador') }}">
+            Administrador
+          </a>
+        </div>
+        {% endif %}
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link ">
+            Mais
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Pagamento
+            </a>
+            <a class="navbar-item">
+              Restrições
+            </a>
+          </div>
+        </div> 
+
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            {% if current_user.is_authenticated %}
+                <a class="button is-light" href="{{ url_for('site.logout') }}">
+                  <strong>Sair</strong>
+                </a>
+            {% else %}
+                <a class="button has-background-black	 has-background-grey-lighter	" href="{{ url_for('site.cadastro') }}">
+                  <strong>Cadastra-se</strong>
+                </a>
+                <a class="button is-light" href="{{ url_for('site.login') }}">
+                  <strong>Entrar</strong>
+                </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  {% endblock nav%}
+  
+  {% block top%}{% endblock top %}
+
+  <section class="section">
+    <div class="container">
+      {% block main %}{% endblock main%}
+    </div>
+  </section>
+  <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> 
+ 
+  {% block footer %}
+  <footer class="footer-padding  has-text-centered">
+    <figure class="bd-pros-icon">
+      <article class="message is-info is-primary">
+          <p>Engenharia de software</p>
+      </article>
+      Rhuan,Weslley,Vinícius,Leonardo
+        <svg width="22px" height="30px" viewBox="0 0 220 320" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g fill="#00D1B2">          
+              <polygon id="Path" points="0 220 20 80 100 0 200 100 140 160 220 240 100 320"></polygon>
+            </g>
+          </g>
+        </svg><br>
+    <strong>Projeto</strong><a href="">FutData</a>.
+  </footer>
+  {% endblock footer%}
+
+
+
+
+
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  
+</body>
+
+</html>

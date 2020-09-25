@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block top %}
+
+<section class="hero has-background-white ">
+    <div class="hero-body">
+        <div class="container">
+            <br> <h1></h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block main %}
+<div class="columns is-centered">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="notification is-danger">
+                    <p> {{ msg }} </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<form action='{{ url_for("site.login") }}' method='post' enctype='multipart/form-data'>
+
+    <!-- necessário token para validar cadastro -->
+    {{ form.csrf_token }}
+    <div class="columns is-centered">
+        <div>
+            {{ form.email.label(class="label") }}
+            <p class="control has-icons-left has-icons-right">
+                {{ form.email(size=30, class='input', placeholder='Email') }}<br>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>
+            </p>
+
+            {{ form.password.label(class="label") }}
+            <p class="control has-icons-left">
+                {{ form.password(size=30, class='input', placeholder='Senha') }}<br>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+            <br>
+            
+            <input type="submit" value="Entrar" class="button is-black">
+        </div>
+    </div>
+
+    
+</form>
+
+{% endblock %}

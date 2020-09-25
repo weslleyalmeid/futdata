@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "macros/list_item.html" as list_item %}
+
+
+{% block top %}
+
+<div class="block">
+  <br>
+  <section class="hero has-background-primary">
+    <div class="hero-body">
+      <div class="container">
+        {% if current_user.is_authenticated %}
+        <h1 class="title">Gestão de reservas</h1>
+        {% else %}
+        <h1 class="title">Em Desenvolvimento</h1>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock top %}
+
+<div class="block">
+  <section class="hero has-background is-white">
+    <div class="hero-body">
+      {% block main %}
+      <div class="flashes">
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% if category == 'error'%}
+        <div class="notification is-danger">
+          {{ message }}
+        </div>
+        {% else %}
+        <div class="notification is-success">
+          {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% if reservas %}
+
+      <div class="container has-text-centered">
+        <h1 class="title">Reservas</h1>
+
+        <table class="table" style="margin-left:auto;margin-right:auto;">
+          <thead>
+            <tr>
+              <th>Local</th>
+              <th>Data</th>
+              <th>Horário</th>
+              <th>Responsável</th>
+              <th>Telefone</th>
+              <th>Status de pagamento</th>
+            </tr>
+          </thead>
+          {% for reserva in reservas %}
+          <tbody>
+            <tr>
+              <td>{{ reserva[0] }}</td>
+              <td><time datetime="DD-MM-YYYY">{{ reserva[1] }}</time></td>
+              <td><time datetime="hh:mm">{{ reserva[2] }}</time></td>
+              <td>{{ reserva[3] }}</td>
+              <td>{{ reserva[4] }}</td>
+              <td>{{ reserva[5] }}</td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+      {% endif %}
+      {% endblock main %}
+    </div>
+  </section>
+</div>
