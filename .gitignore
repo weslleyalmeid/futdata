@@ -11,6 +11,7 @@ futdata/ext/toolbar.py
 __pycache__/
 *.py[cod]
 *$py.class
+.secrets.toml
 
 # C extensions
 *.so
